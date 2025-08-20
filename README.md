@@ -130,40 +130,15 @@
    - 点击 "Deploy" 开始构建
    - 构建完成后即可访问你的 NewsNow 应用
 
-#### Vercel.json 配置文件
+#### 自动配置
 
-为了优化 Vercel 部署，建议创建 `vercel.json` 配置文件：
+项目使用 **Nitro 框架**的 `vercel-edge` 预设，会自动生成正确的 Vercel 配置。
 
-```json
-{
-  "buildCommand": "pnpm run build",
-  "outputDirectory": "dist/output/public",
-  "installCommand": "pnpm install",
-  "framework": null,
-  "functions": {
-    "dist/output/server/index.mjs": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=60, stale-while-revalidate=300"
-        }
-      ]
-    }
-  ]
-}
-```
+**无需手动创建 vercel.json 文件**，Nitro 会在构建时自动处理：
+- 服务端函数配置
+- 路由重写规则  
+- 静态文件托管
+- 边缘计算优化
 
 ### Cloudflare Pages 部署
 
