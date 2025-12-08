@@ -3,7 +3,12 @@ import { load } from "cheerio"
 export default defineSource(async () => {
   // Use RSS feed to bypass anti-bot protection (405 error on homepage)
   const rssUrl = "https://www.freebuf.com/feed"
-  const rssXml = await myFetch<string>(rssUrl)
+  const rssXml = await myFetch<string>(rssUrl, {
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+      "Accept": "application/rss+xml, application/xml, text/xml, */*",
+    },
+  })
 
   const $ = load(rssXml, { xmlMode: true })
   const articles: any[] = []
