@@ -85,7 +85,7 @@ function extractAuthor($article: cheerio.Cheerio<any>): AuthorInfo {
 // 辅助函数：提取分类信息
 function extractCategory($article: cheerio.Cheerio<any>): string {
   // 从URL路径推断分类
-  const articleUrl = $article.find(".title-left .title").parent().attr("href") || ""
+  const articleUrl = $article.find(".title-left a").first().attr("href") || ""
   if (articleUrl.includes("/articles/web/")) return "Web安全"
   if (articleUrl.includes("/articles/database/")) return "数据安全"
   if (articleUrl.includes("/articles/network/")) return "网络安全"
@@ -108,10 +108,20 @@ export default defineSource(async () => {
   const baseUrl = "https://www.freebuf.com"
   const html = await myFetch<any>(baseUrl, {
     headers: {
-      "User-Agent":
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-      "Referer": "https://www.freebuf.com/",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
       "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Referer": "https://www.freebuf.com/",
+      "Cache-Control": "max-age=0",
+      "Sec-Ch-Ua": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Google Chrome\";v=\"120\"",
+      "Sec-Ch-Ua-Mobile": "?0",
+      "Sec-Ch-Ua-Platform": "\"Windows\"",
+      "Sec-Fetch-Dest": "document",
+      "Sec-Fetch-Mode": "navigate",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-User": "?1",
+      "Upgrade-Insecure-Requests": "1",
     },
   })
   const $ = cheerio.load(html)
