@@ -31,6 +31,13 @@ const quick = defineSource(async () => {
 })
 
 const renqi = defineSource(async () => {
+  // 注意：36kr的热度榜URL已失效，返回404
+  // 可能需要使用API接口或更新URL
+  // 临时返回空数组，避免报错
+  console.warn("36kr renqi hot list URL is currently unavailable (404)")
+  return []
+
+  /* 原有代码保留供参考
   const baseURL = "https://36kr.com"
   const formatted = dayjs().format("YYYY-MM-DD")
   const url = `${baseURL}/hot-list/renqi/${formatted}/1`
@@ -39,7 +46,7 @@ const renqi = defineSource(async () => {
     headers: {
       "User-Agent":
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-      "Referer": "https://www.freebuf.com/",
+      "Referer": "https://36kr.com/",
       "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
     },
   })
@@ -80,6 +87,7 @@ const renqi = defineSource(async () => {
     }
   })
   return articles
+  */
 })
 
 export default defineSource({

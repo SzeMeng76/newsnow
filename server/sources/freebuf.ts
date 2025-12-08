@@ -122,7 +122,7 @@ export default defineSource(async () => {
 
     try {
       // 提取文章标题和URL
-      const titleLink = $article.find(".title-left .title").parent()
+      const titleLink = $article.find(".title-left a").first()
       const title = titleLink.find(".title").text().trim()
       const url = formatUrl(titleLink.attr("href"), baseUrl)
 
