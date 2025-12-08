@@ -130,10 +130,11 @@ export default defineSource(async () => {
       if (!title) return
 
       // 提取文章描述
-      const description = safeExtract($article, ".item-right .text-line-2")
+      const description = safeExtract($article, ".item-top .text-line-2")
 
-      // 提取发布时间
-      const publishTime = safeExtract($article, ".item-bottom span:last-child")
+      // 提取发布时间 - 在 .bottom-right 里最后一个 span（不在 a 标签里的）
+      const timeSpans = $article.find(".bottom-right > span")
+      const publishTime = timeSpans.last().text().trim()
 
       // 提取作者信息
       const author = extractAuthor($article)
